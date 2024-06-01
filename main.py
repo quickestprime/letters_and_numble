@@ -80,6 +80,7 @@ def pairwise_solve(numbers,target):
             inverse = INVERSE_OPERATIONS[operation]
             complement = inverse(target, number)
             if np.mod(complement, 1) == 0:
+                complement = int(complement)
                 if complement in remaining_numbers:
                     return True, ('(' + str(complement)  + operation +  str(number) + ')')
     return False, None
@@ -109,42 +110,29 @@ def find_expression(numbers, target):
 
     return False, None
     
-   
 
-numbers = [2,7,12,100,25,75]
-target = 1012
-# print(pairwise_solve(numbers, target))
-print(find_expression(numbers, target))
-
-
-# def find_expression(numbers, target):
-#     if target == 0:
-#         return True, ''
-#     if target in numbers:
-#         return True, f'+ {str(target)}'
-    
-#     if True:
-#         return None
-    
-#     elif len(numbers) > 0:
-#         for number in numbers:
-#             for operation in valid_operations:
-                
-#                 print(f"Attempting to solve the subproblem of generating {target} with {numbers}:")
-#                 forward_operation = FORWARD_OPERATIONS[operation]
-#                 if forward_operation(target, number):
-#                     pass
-#                 inverse = INVERSE_OPERATIONS[operation]
-                
-#                 new_target = inverse(target, number)
-#                 new_numbers = [x for x in numbers if x != number]
-                
-#                 found, test_string = find_expression(new_numbers, new_target)
-#                 print(f"Generated attempt: {str(number) + operation + test_string}")
-#                 if found:
-#                     return True, str(number) + operation + test_string
-
-#     return False, 'No solution.'
+def solve_puzzle(puzzle):
+    distance_away = 0
+    target = puzzle['target']
+    upper = puzzle['target']
+    lower = puzzle['target']
+    numbers = puzzle['bigs'] + puzzle['smalls']
+    solved = False
+    while not solved:
+        solved, solution = find_expression(numbers, target)
+        if solved:
+            return solution, distance_away, target
+        else:
+            distance_away += 1
+            upper += 1
+            lower -= 1
+            solved, solution = find_expression(numbers, upper)
+            if solved:
+                return solution, distance_away, upper
+            solved, solution = find_expression(numbers, lower)
+            if solved:
+                return solution, distance_away, lower
+            
 
 
 
@@ -158,6 +146,12 @@ def main():
     while not solved:
         solve_attempt = input('Input solution (or type to q to quit): ')
         if solve_attempt == 'q':
+            solution, distance_away, solved_for = solve_puzzle(puzzle)
+            if distance_away == 0:
+                print(f"A solution was {solution}")
+            else:
+                print(f"You could only get with {distance_away} today.")
+                print(f"You could make {solved_for} by: {solution}")
             break
         solved = is_valid_solve(puzzle, solve_attempt)
         if solved:
@@ -165,4 +159,4 @@ def main():
         else:
             print('Nope.')
 
-# main()
+main()
