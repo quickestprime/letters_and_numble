@@ -81,7 +81,7 @@ def pairwise_solve(numbers,target):
             complement = inverse(target, number)
             if np.mod(complement, 1) == 0:
                 if complement in remaining_numbers:
-                    return True, ('(' + str(number) + operation + str(complement) + ')')
+                    return True, ('(' + str(complement)  + operation +  str(number) + ')')
     return False, None
 
 def find_expression(numbers, target):
@@ -102,8 +102,8 @@ def find_expression(numbers, target):
                     complement = inverse(target, number)
                     test, exp = find_expression(remaining_numbers, complement)
                     if test:
-                        exp_out = f"({str(number)}  + {operation} + {exp})" 
-                        eval_exp_out = evaluate_arithmetic(exp_out)
+                        print(exp, '=', complement)
+                        exp_out = f"({exp}) {operation} {str(number)}" 
                         return test, exp_out
                 
 
@@ -112,7 +112,7 @@ def find_expression(numbers, target):
    
 
 numbers = [2,7,12,100,25,75]
-target = 913
+target = 1012
 # print(pairwise_solve(numbers, target))
 print(find_expression(numbers, target))
 
