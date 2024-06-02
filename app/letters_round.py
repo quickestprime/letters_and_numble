@@ -33,7 +33,7 @@ def generate_letters():
     game_consonants = choices(consonants, k = n_consonants)
     all_letters = game_vowels + game_consonants
     shuffle(all_letters)
-    return all_letters
+    return {'game_letters': all_letters}
 
 
 def generate_combinations(letters):
@@ -61,7 +61,7 @@ def solve_game(letters):
 
 def main():
     game_letters = generate_letters()
-    print(f"Today's letters are: {game_letters}")
+    print(f"Today's letters are: {game_letters['game_letters']}")
     player_has_given_valid_word = False
     player_word = input('Enter your word: ')
     
@@ -72,7 +72,7 @@ def main():
         else:
             player_word = input(f"Sorry, {player_word} is not an acceptable word. Please enter another word: ")
     
-    answers = solve_game(game_letters)
+    answers = solve_game(game_letters['game_letters'])
     answer_keys = list(answers.keys())
     best_score = answer_keys[0]
     print(f"Congrats! You found a {player_score} letter word. The best you could do was {best_score}: {set(answers[best_score])}")

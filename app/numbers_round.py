@@ -1,7 +1,7 @@
 import numpy as np
 import random
 import re
-import utils
+
 
 
 PROB_MASS_FOR_N_BIGS = {
