@@ -64,6 +64,7 @@ def main():
     print(f"Today's letters are: {game_letters}")
     player_has_given_valid_word = False
     player_word = input('Enter your word: ')
+    
     while not player_has_given_valid_word:
         if word_hashmap.get(player_word.lower()):
             player_has_given_valid_word = True
