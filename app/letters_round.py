@@ -59,6 +59,12 @@ def solve_game(letters):
                 answers[word_length].append(string)
     return answers
 
+def process_guess(user_word):
+    if word_hashmap.get(user_word.lower()):
+            return len(user_word)
+    return False
+
+
 def main():
     game_letters = generate_letters()
     print(f"Today's letters are: {game_letters['game_letters']}")
