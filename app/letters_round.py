@@ -48,7 +48,8 @@ def generate_combinations(letters):
 
 
 def solve_game(letters):
-    letter_strings = generate_combinations(letters)
+    letter_strings = generate_combinations(letters['game_letters'])
+    # print(letter_strings[:100])
     answers = {}
     for string in letter_strings:
         if word_hashmap.get(string.lower()):
@@ -57,6 +58,7 @@ def solve_game(letters):
                 answers[word_length] = [string]
             else:
                 answers[word_length].append(string)
+    print(answers)
     return answers
 
 def process_guess(user_word):
