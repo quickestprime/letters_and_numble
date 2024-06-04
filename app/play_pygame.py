@@ -11,8 +11,11 @@ pygame.init()
 # Set up the display
 screen_width = 640
 screen_height = 480
+
 screen = pygame.display.set_mode((screen_width, screen_height))
 
+
+tile_size, tile_color, font_color = 50, (100, 100, 200), (255, 255, 255)
 
 # Function to draw the button, call this in your game loop
 def draw_button(screen, position, size, color, text):
@@ -55,7 +58,7 @@ while running:
         elif event.type == pygame.MOUSEBUTTONDOWN and game_state == "SHOW LETTER RESULTS" and click_was_inside_box(event.pos, (100,400), (400, 50)):
             print('should play numbers here')
             game_state = 'PLAYING_NUMBERS'
-            solve = np.play()
+            user_score, numbers_solution = np.play()
 
     if game_state == "INITIAL":
         # Fill the screen with a color

@@ -166,5 +166,5 @@ def play():
                 tile_locs = draw_tiles(screen, letters['game_letters'], tile_size, tile_color, font_color)
 
 
-    return answers
+    return answers, user_word
 

@@ -1,9 +1,13 @@
 import string
 from random import choices, shuffle
+import nltk
 from nltk.corpus import words
 import itertools
 
-# nltk.download('words')
+try: 
+    words.words()
+except:
+    nltk.download('words')
 
 # from PyDictionary import PyDictionary
 # dictionary=PyDictionary()
