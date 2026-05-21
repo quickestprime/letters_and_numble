@@ -113,7 +113,7 @@ jupyter-client @ file:///tmp/build/80754af9/jupyter_client_1616770841739/work
 jupyter-console @ file:///tmp/build/80754af9/jupyter_console_1616615302928/work
 jupyter-server @ file:///opt/concourse/worker/volumes/live/c0b6c5cd-8b5f-482c-6789-42a64b3d2acc/volume/jupyter_server_1616084049292/work
 jupyter-telemetry==0.1.0
-jupyter_core==5.7.2
+jupyter_core>=5.8.0
 jupyterhub==2.1.1
 jupyterlab @ file:///tmp/build/80754af9/jupyterlab_1635799997693/work
 jupyterlab-pygments @ file:///tmp/build/80754af9/jupyterlab_pygments_1601490720602/work
