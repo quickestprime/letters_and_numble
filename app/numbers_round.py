@@ -1,3 +1,5 @@
+import ast
+import operator as op_module
 import numpy as np
 import random
 import re
@@ -50,13 +52,28 @@ def extract_numbers_and_operators(arithmetic_str):
     return matches
 
 
+_SAFE_OPS = {
+    ast.Add: op_module.add,
+    ast.Sub: op_module.sub,
+    ast.Mult: op_module.mul,
+    ast.Div: op_module.truediv,
+    ast.USub: op_module.neg,
+}
+
+def _safe_eval_node(node):
+    if isinstance(node, ast.Constant) and isinstance(node.value, (int, float)):
+        return node.value
+    if isinstance(node, ast.BinOp) and type(node.op) in _SAFE_OPS:
+        return _SAFE_OPS[type(node.op)](_safe_eval_node(node.left), _safe_eval_node(node.right))
+    if isinstance(node, ast.UnaryOp) and type(node.op) in _SAFE_OPS:
+        return _SAFE_OPS[type(node.op)](_safe_eval_node(node.operand))
+    raise ValueError(f"Unsupported expression node: {ast.dump(node)}")
+
 def evaluate_arithmetic(expression):
     try:
-        # Replace x with * to fit Python multiplication syntax
         expression = expression.replace('x', '*')
-        # Use eval to evaluate the arithmetic expression
-        result = eval(expression)
-        return result
+        tree = ast.parse(expression, mode='eval')
+        return _safe_eval_node(tree.body)
     except Exception as e:
         return f"Error: {e}"
 
